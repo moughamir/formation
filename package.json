@@ -4,7 +4,7 @@
   "description": "Advanced React",
   "main": "lib/server.js",
   "scripts": {
-    "dev": "pm2 start lib/server.js --watch",
+    "dev": "babel-node lib/server.js --watch",
     "webpack": "webpack -wd",
     "logs": "pm2 logs",
     "dev:stop": "pm2 kill",
@@ -24,8 +24,10 @@
   },
   "homepage": "https://github.com/moughamir/formations#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.5",
     "jest": "^23.2.0",
+    "react-test-renderer": "^16.4.1",
     "webpack-cli": "^3.0.8"
   },
   "dependencies": {
