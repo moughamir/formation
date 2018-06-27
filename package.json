@@ -4,7 +4,7 @@
   "description": "Advanced React",
   "main": "lib/server.js",
   "scripts": {
-    "dev": "babel-node lib/server.js --watch",
+    "dev": "NODE_PATH=./lib babel-node lib/server.js --watch",
     "webpack": "webpack -wd",
     "logs": "pm2 logs",
     "dev:stop": "pm2 kill",
