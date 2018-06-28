@@ -1,4 +1,7 @@
 {
-  "presets": ["env", "react"],
-  "plugins": ["transform-es2015-arrow-functions", "transform-class-properties"]
+  "presets":[
+    "react",
+    "env"
+  ],
+  "plugins": ["transform-object-rest-spread"]
 }
