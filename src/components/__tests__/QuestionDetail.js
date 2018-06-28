@@ -1,6 +1,42 @@
+import { mapStateToProps, QuestionDetailDisplay } from '../QuestionDetail';
+import TestRenderer from 'react-test-renderer';
+import React from 'react';
+
 describe('QuestionDetail Component', () => {
 
-  it('Should not regress', () => {
+  describe('The Container element', () => {
 
+    describe('mapStateToProps', () => {
+
+      it('Should map the state to props correctly', () => {
+        const sampleQuestion = {
+          question_id: 42,
+          body: 'The hitcheker of Space'
+        };
+        const appState = {
+          questions: [sampleQuestion],
+        };
+        const ownProps = {
+          question_id: 42,
+        };
+        const componentState = mapStateToProps(appState, ownProps);
+
+        expect(componentState).toEqual(sampleQuestion);
+      });
+    });
   });
+
+  describe('The Display element', () => {
+    it('Should not regress', () => {
+      const tree = TestRenderer
+        .create(<QuestionDetailDisplay
+          title="The Meaning Of Life"
+          body="42"
+          answer_count={0}
+          tags={['hitchhiking']}
+          />)
+
+      expect(tree.toJSON).toMatchSnapshot();
+    });
+  })
 });

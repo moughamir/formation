@@ -1,25 +1,30 @@
 import React from 'react';
 import QuestionList from './components/QuestionList'
 import QuestionDetail from './components/QuestionDetail'
+import NotificationsViewer from './components/NotificationsViewers'
 import { connect } from 'react-redux';
 
 import {
     Route,
     Link
-} from 'react-router-dom'
+}
+from 'react-router-dom'
 
 /**
  * App Component is the highest level real component in the application, it is the parent of the routes and an
  * an ancestors of all other compoents
  */
-const AppDisplay =  ()=>(
+const AppDisplay = () => (
     <div>
         <div>
             <Link to={`/`}>
                 <h1>Isomorphic React</h1>
             </Link>
+            <div>
+             <NotificationsViewer />
+            </div>
         </div>
-
+        
         {/*Specify a route for the main page which renders when the path is empty*/}
         <Route exact path='/' render={()=><QuestionList />}/>
 
@@ -29,7 +34,7 @@ const AppDisplay =  ()=>(
     </div>
 );
 
-const mapStateToProps = (state,ownProps)=>({
+const mapStateToProps = (state, ownProps) => ({
     ...state,
 });
 
