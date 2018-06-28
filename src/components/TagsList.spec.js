@@ -6,7 +6,7 @@ describe('TagList', () => {
 
   it('Should render as expected', () => {
     const tree = TestRenderer
-      .create(<TagsList tags={[`css`, `html`, `python`]}/>)
+      .create(<TagsList tags={[`css`, `html`, `nodejs`]}/>)
       .toJSON();
 
     expect(tree).toMatchSnapshot();
