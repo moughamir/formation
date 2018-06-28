@@ -41,7 +41,7 @@ const useLiveData = argv.useLiveData === 'true';
  * The block below will run during development and facilitates live-reloading
  * If the process is development, set up the full live reload server
  */
-if(process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
     /**
      * Get the development configuration from webpack.config.
      */
@@ -56,7 +56,7 @@ if(process.env.NODE_ENV === 'development') {
      * Use webpack-dev-middleware, which facilitates creating a bundle.js in memory and updating it automatically
      * based on changed files
      */
-    app.use(require('webpack-dev-middleware')(compiler,{
+    app.use(require('webpack-dev-middleware')(compiler, {
         /**
          * @noInfo Only display warnings and errors to the concsole
          */
@@ -77,7 +77,8 @@ if(process.env.NODE_ENV === 'development') {
      * Can be used instead of react-hot-middleware if Redux is being used to manage app state
      */
     app.use(require('webpack-hot-middleware')(compiler));
-} else {
+}
+else {
     /**
      * If the process is production, just serve the file from the dist folder
      * Build should have been run beforehand
@@ -88,18 +89,19 @@ if(process.env.NODE_ENV === 'development') {
 /**
  * Returns a response object with an [items] property containing a list of the 30 or so newest questions
  */
-function * getQuestions (){
+function* getQuestions() {
     let data;
     if (useLiveData) {
         /**
          * If live data is used, contact the external API
          */
-        data = yield get(questions,{gzip:true});
-    } else {
+        data = yield get(questions, { gzip: true });
+    }
+    else {
         /**
          * If live data is not used, read the mock questions file
          */
-        data = yield fs.readFile('./data/mock-questions.json',"utf-8");
+        data = yield fs.readFile('./data/mock-questions.json', "utf-8");
     }
 
     /**
@@ -108,25 +110,26 @@ function * getQuestions (){
     return JSON.parse(data);
 }
 
-function * getQuestion (question_id) {
+function* getQuestion(question_id) {
     let data;
     if (useLiveData) {
         /**
          * If live data is used, contact the external API
          */
-        data = yield get(question(question_id),{gzip:true,json:true});
-    } else {
+        data = yield get(question(question_id), { gzip: true, json: true });
+    }
+    else {
         /**
          * If live data is not used, get the list of mock questions and return the one that
          * matched the provided ID
          */
         const questions = yield getQuestions();
-        const question = questions.items.find(_question=>_question.question_id == question_id);
+        const question = questions.items.find(_question => _question.question_id == question_id);
         /**
          * Create a mock body for the question
          */
         question.body = `Mock question body: ${question_id}`;
-        data = {items:[question]};
+        data = { items: [question] };
     }
     return data;
 }
@@ -135,7 +138,7 @@ function * getQuestion (question_id) {
  * Creates an api route localhost:3000/api/questions, which returns a list of questions
  * using the getQuestions utility
  */
-app.get('/api/questions',function *(req,res){
+app.get('/api/questions', function*(req, res) {
     const data = yield getQuestions();
     /**
      * Insert a small delay here so that the async/hot-reloading aspects of the application are
@@ -148,7 +151,7 @@ app.get('/api/questions',function *(req,res){
 /**
  * Special route for returning detailed information on a single question
  */
-app.get('/api/questions/:id',function *(req,res){
+app.get('/api/questions/:id', function*(req, res) {
     const data = yield getQuestion(req.params.id);
     /**
      * Remove this delay for production.
@@ -160,11 +163,11 @@ app.get('/api/questions/:id',function *(req,res){
 /**
  * Create a route that triggers only when one of the two view URLS are accessed
  */
-app.get(['/','/questions/:id'], function *(req,res){
+app.get(['/', '/questions/:id'], function*(req, res) {
     /**
      * Read the raw index HTML file
      */
-    let index = yield fs.readFile('./public/index.html',"utf-8");
+    let index = yield fs.readFile('./public/index.html', "utf-8");
 
     /**
      * Create a memoryHistory, which can be
@@ -182,7 +185,7 @@ app.get(['/','/questions/:id'], function *(req,res){
      * Create a default initial state which will be populated based on the route
      */
     const initialState = {
-        questions:[]
+        questions: []
     };
 
     /**
@@ -199,8 +202,9 @@ app.get(['/','/questions/:id'], function *(req,res){
          */
         const response = yield getQuestion(question_id);
         const questionDetails = response.items[0];
-        initialState.questions = [{...questionDetails,question_id}];
-    } else {
+        initialState.questions = [{ ...questionDetails, question_id }];
+    }
+    else {
         /**
          * Otherwise, we are on the "new questions view", so preload the state with all the new questions (not including their bodies or answers)
          */
@@ -211,7 +215,7 @@ app.get(['/','/questions/:id'], function *(req,res){
     /**
      * Create a redux store that will be used only for server-rendering our application (the client will use a different store)
      */
-    const store = getStore(history,initialState);
+    const store = getStore(history, initialState);
 
     /**
      * If server render is used, replace the specified block in index with the application's rendered HTML
@@ -227,13 +231,14 @@ app.get(['/','/questions/:id'], function *(req,res){
                 </ConnectedRouter>
             </Provider>
         );
-        index = index.replace(`<%= preloadedApplication %>`,appRendered)
-    } else {
+        index = index.replace(`<%= preloadedApplication %>`, appRendered)
+    }
+    else {
         /**
          * If server render is not used, just output a loading message, and the application will appear
          * when React boostraps on the client side.
          */
-        index = index.replace(`<%= preloadedApplication %>`,`Please wait while we load the application.`);
+        index = index.replace(`<%= preloadedApplication %>`, `Please wait while we load the application.`);
     }
     res.send(index);
 });
@@ -241,4 +246,4 @@ app.get(['/','/questions/:id'], function *(req,res){
 /**
  * Listen on the specified port for requests to serve the application
  */
-app.listen(port, '0.0.0.0', ()=>console.info(`Listening at http://localhost:${port}`));
+app.listen(port, '0.0.0.0', () => console.info(`Listening at http://alphorm-omnizya.c9users.io:${port}`));
