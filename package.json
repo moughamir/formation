@@ -20,5 +20,18 @@
   "bugs": {
     "url": "https://github.com/moughamir/formations/issues"
   },
-  "homepage": "https://github.com/moughamir/formations#readme"
+  "homepage": "https://github.com/moughamir/formations#readme",
+  "dependencies": {
+    "browser-sync": "^2.24.5",
+    "browserify": "^16.2.2",
+    "create-react-class": "^15.6.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "gulp": "^3.9.1",
+    "gulp-live-server": "0.0.31",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
 }
