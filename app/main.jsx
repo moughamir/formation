@@ -3,4 +3,15 @@ const ReactDOM = require('react-dom')
 
 const GroceryItemsList = require('./components/GroceryItemsList.jsx')
 
-ReactDOM.render(<GroceryItemsList/>, app);
+const initial = [{
+  name: "Ice Cream"
+}, {
+  name: "Waffles"
+}, {
+  name: "Candy",
+  purchased: true
+}, {
+  name: "Soda Drink"
+}];
+
+ReactDOM.render(<GroceryItemsList items={initial}/>, app);
