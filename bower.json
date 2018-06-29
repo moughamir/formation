@@ -1,0 +1,23 @@
+{
+  "name": "fullstackjs",
+  "description": "FullStack App with Express and React ====================================",
+  "main": "index.js",
+  "authors": [
+    "Mohamed Moughamir <mohamed@alphorm.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "express",
+    "mongodb"
+  ],
+  "homepage": "https://github.com/moughamir/formations",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
